@@ -190,11 +190,13 @@ const TensorVar& TensorBase::getTensorVar() const {
 }
 
 const TensorStorage& TensorBase::getStorage() const {
-  return content->storage;
+        // std::cout << "getting storage1" << std::endl; 
+	return content->storage;
 }
 
 TensorStorage& TensorBase::getStorage() {
-  return content->storage;
+  	// std::cout << "getting storage2" << std::endl; 
+      	return content->storage;
 }
 
 void TensorBase::setAllocSize(size_t allocSize) {
@@ -1212,6 +1214,7 @@ ostream& operator<<(ostream& os, const TensorBase& tensor) {
 }
 
 ostream& operator<<(ostream& os, TensorBase& tensor) {
+  // std::cout << "input arr check -- " << std::endl;
   tensor.syncValues();
   vector<string> dimensionStrings;
   for (int dimension : tensor.getDimensions()) {
@@ -1219,10 +1222,12 @@ ostream& operator<<(ostream& os, TensorBase& tensor) {
   }
   os << tensor.getName() << " (" << util::join(dimensionStrings, "x") << ") "
      << tensor.getFormat() << ":" << std::endl;
-
+  // std::cout << "diff check"  << std::endl;
   // Print coordinates
   size_t numCoordinates = tensor.content->coordinateBufferUsed / tensor.content->coordinateSize;
+  // std::cout << numCoordinates << std::endl;
   for (size_t i = 0; i < numCoordinates; i++) {
+    //std::cout << "{ptr num " << i << " nc " << numCoordinates << "} ";
     int* ptr = (int*)&tensor.content->coordinateBuffer->data()[i*tensor.content->coordinateSize];
     os << "(" << util::join(ptr, ptr+tensor.getOrder()) << "): ";
     switch(tensor.getComponentType().getKind()) {
@@ -1246,6 +1251,7 @@ ostream& operator<<(ostream& os, TensorBase& tensor) {
   }
 
   // Print packed data
+  // std::cout << "getting storage" << std::endl;
   os << tensor.getStorage();
 
   return os;

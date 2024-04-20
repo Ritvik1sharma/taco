@@ -69,8 +69,7 @@ size_t Index::getSize() const {
 std::ostream& operator<<(std::ostream& os, const Index& index) {
   auto& format = index.getFormat();
   for (int i = 0; i < format.getOrder(); i++) {
-    os << format.getModeFormats()[i] <<
-      " (" << format.getModeOrdering()[i] << "): ";
+    os << format.getModeFormats()[i] << " (" << format.getModeOrdering()[i] << "): ";
     auto modeIndex = index.getModeIndex(i);
     for (int j = 0; j < modeIndex.numIndexArrays(); j++) {
       os << endl << "  " << modeIndex.getIndexArray(j);
@@ -79,6 +78,36 @@ std::ostream& operator<<(std::ostream& os, const Index& index) {
   }
   return os;
 }
+
+// template<typename T>
+// std::vector<std::vector<T>> getData(const Index& index)
+// {
+// 	auto& format = index.getFormat();
+// 	std::vector<std::vector<T>> result;
+// 	for (int i = 0; i < format.getOrder(); i++) {
+//    		// std::vector<int> res;
+// 		auto modeIndex = index.getModeIndex(i);
+// 		for (int j = 0; j < modeIndex.numIndexArrays(); j++) {		      
+// 			result.push_back(modeIndex.getIndexArray(j).return_data<T>());
+// 		}
+// 	}
+// 	return result;
+// }
+
+std::vector<std::vector<int>> getIndexes(const Index& index)
+{
+	auto& format = index.getFormat();
+	std::vector<std::vector<int>> result;
+	for (int i = 0; i < format.getOrder(); i++) {
+   		// std::vector<int> res;
+		auto modeIndex = index.getModeIndex(i);
+		for (int j = 0; j < modeIndex.numIndexArrays(); j++) {		      
+			result.push_back(modeIndex.getIndexArray(j).return_idx());
+		}
+	}
+	return result;
+}
+
 
 
 // class ModeIndex

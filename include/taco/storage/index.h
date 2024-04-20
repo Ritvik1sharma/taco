@@ -39,8 +39,9 @@ public:
   ModeIndex getModeIndex(int i);
   /// @}
 
-  /// Returns the index size, which is the number of values it describes.
+  /// Returns the index size, which is the number of values it describes.tyename T
   size_t getSize() const;
+
 
 private:
   struct Content;
@@ -48,6 +49,11 @@ private:
 };
 
 std::ostream& operator<<(std::ostream&, const Index&);
+
+// template <typename T>
+// std::vector<std::vector<T>> getData(const Index&);
+
+std::vector<std::vector<int>> getIndexes(const Index&);
 
 
 /// A mode sub-index of an Index. The type of the mode index is determined by

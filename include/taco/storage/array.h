@@ -38,10 +38,21 @@ public:
 
   /// Gets the value at a given index
   TypedComponentRef get(size_t index) const;
+  
+  
   /// Gets the value at a given index
   TypedComponentRef operator[] (const int index) const;
 
-  /// Zero the array content
+  // New class function
+  // template <typename T>
+
+  // std::vector<T> returnData();
+  std::vector<double> return_values();
+  std::vector<int> return_idx();
+  
+  template <typename T>
+  std::vector<T> return_data();
+  
   void zero();
 
 private:

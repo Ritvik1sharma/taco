@@ -1,0 +1,6 @@
+﻿pytaco.min
+==========
+
+.. currentmodule:: pytaco
+
+.. autofunction:: min
