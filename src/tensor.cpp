@@ -1175,6 +1175,7 @@ bool operator>=(const TensorBase& a, const TensorBase& b) {
 }
 
 ostream& operator<<(ostream& os, const TensorBase& tensor) {
+  // std::cout << "check dim size ()" << tensor.getDimensions().size() << std::endl;
   vector<string> dimensionStrings;
   for (int dimension : tensor.getDimensions()) {
     dimensionStrings.push_back(to_string(dimension));
@@ -1184,6 +1185,8 @@ ostream& operator<<(ostream& os, const TensorBase& tensor) {
 
   // Print coordinates
   size_t numCoordinates = tensor.content->coordinateBufferUsed / tensor.content->coordinateSize;
+  // std::cout << "check num crds ()" << numCoordinates << std::endl;
+
   for (size_t i = 0; i < numCoordinates; i++) {
     int* ptr = (int*)&tensor.content->coordinateBuffer->data()[i * tensor.content->coordinateSize];
     os << "(" << util::join(ptr, ptr+tensor.getOrder()) << "): ";
@@ -1214,7 +1217,8 @@ ostream& operator<<(ostream& os, const TensorBase& tensor) {
 }
 
 ostream& operator<<(ostream& os, TensorBase& tensor) {
-  // std::cout << "input arr check -- " << std::endl;
+  // std::cout << "input arr check -- " << " " << tensor.getDimensions().size() <<  std::endl;
+  
   tensor.syncValues();
   vector<string> dimensionStrings;
   for (int dimension : tensor.getDimensions()) {
@@ -1225,7 +1229,7 @@ ostream& operator<<(ostream& os, TensorBase& tensor) {
   // std::cout << "diff check"  << std::endl;
   // Print coordinates
   size_t numCoordinates = tensor.content->coordinateBufferUsed / tensor.content->coordinateSize;
-  // std::cout << numCoordinates << std::endl;
+  // std::cout << "num cords " << numCoordinates << std::endl;
   for (size_t i = 0; i < numCoordinates; i++) {
     //std::cout << "{ptr num " << i << " nc " << numCoordinates << "} ";
     int* ptr = (int*)&tensor.content->coordinateBuffer->data()[i*tensor.content->coordinateSize];

@@ -510,10 +510,6 @@ def remove_explicit_zeros(t, new_fmt=None, new_dtype=None):
       t = as_type(t, new_dtype)
 
     new_fmt = t.format if new_fmt is None else new_fmt
-    print("type check of _.tensor ", type(t._tensor))
-    for t in dir(t._tensor):
-        print(t)
-    print("return value ")
     return tensor._fromCppTensor(t._tensor.remove_explicit_zeros(new_fmt))
 
 

@@ -68,8 +68,9 @@ size_t Index::getSize() const {
 
 std::ostream& operator<<(std::ostream& os, const Index& index) {
   auto& format = index.getFormat();
+  std::cout << "format order " << format.getOrder() << std::endl;
   for (int i = 0; i < format.getOrder(); i++) {
-    os << format.getModeFormats()[i] << " (" << format.getModeOrdering()[i] << "): ";
+    os << "mode formats " << format.getModeFormats()[i] << " (" << format.getModeOrdering()[i] << "): ";
     auto modeIndex = index.getModeIndex(i);
     for (int j = 0; j < modeIndex.numIndexArrays(); j++) {
       os << endl << "  " << modeIndex.getIndexArray(j);
@@ -109,6 +110,22 @@ std::vector<std::vector<int>> getIndexes(const Index& index)
 }
 
 
+std::vector<std::vector<int>> getIndexes(const Index& index, bool flag)
+{
+  std::cout << "return indexes here is format";
+  auto& format = index.getFormat();
+  std::cout << format << std::endl;
+  
+  std::vector<std::vector<int>> result;
+  for (int i = 0; i < format.getOrder(); i++) {
+          // std::vector<int> res;
+          auto modeIndex = index.getModeIndex(i);
+          for (int j = 0; j < modeIndex.numIndexArrays(); j++) {
+                  result.push_back(modeIndex.getIndexArray(j).return_idx(flag));
+          }
+  }
+  return result;
+}
 
 // class ModeIndex
 struct ModeIndex::Content {

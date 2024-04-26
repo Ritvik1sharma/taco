@@ -53,8 +53,9 @@ std::ostream& operator<<(std::ostream&, const Index&);
 // template <typename T>
 // std::vector<std::vector<T>> getData(const Index&);
 
-std::vector<std::vector<int>> getIndexes(const Index&);
 
+std::vector<std::vector<int>> getIndexes(const Index&);
+std::vector<std::vector<int>> getIndexes(const Index&, bool);
 
 /// A mode sub-index of an Index. The type of the mode index is determined by
 /// the Format of the Index it is part of.

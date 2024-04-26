@@ -154,10 +154,44 @@ std::vector<T> Array::return_data() {
 std::vector<double> Array::return_values() {
 	const double* data = static_cast<const double*>(this->getData());
 	std::vector<double> result;
-	for (size_t i = 0; i< this->getSize(); i++)
+	if (this->getSize() > 0)
 	{
-		result.push_back(data[i]);
+		result.push_back(data[0]);
 	}
+  	for (size_t i = 1; i < this->getSize(); i++) {
+    		result.push_back(data[i]);
+  	}
+	return result;
+}
+
+std::vector<double> Array::return_values(bool flag) {
+	if (flag) {
+    std::cout << "values " << std::endl;
+	
+  }
+  const double* data = static_cast<const double*>(this->getData());
+	if (flag)
+  {
+    std::cout << "data " << std::endl;
+	  std::cout << "size " << this->getSize() <<  " " << (this->getSize() > 0) <<  std::endl;
+  }
+  std::vector<double> result;
+	if (this->getSize() > 0)
+	{
+		result.push_back(data[0]);
+	}
+  for (size_t i = 1; i < this->getSize(); i++) {
+      if (flag)
+        std::cout << i << ",";
+  		result.push_back(data[i]);
+	}
+	/*for (size_t i = 0; i< this->getSize(); i++)
+	{
+
+		result.push_back(data[i]);
+	}*/
+  if (flag)
+	  std::cout << "return " << std::endl;
 	return result;
 }
 
@@ -168,6 +202,24 @@ std::vector<int> Array::return_idx() {
 	{
 		result.push_back(data[i]);
 	}
+	return result;
+}
+
+std::vector<int> Array::return_idx(bool flag) {
+  	if (flag)
+  		std::cout << "data here" << std::endl;
+  	const int* data = static_cast<const int*>(this->getData());
+	if (flag)
+        	std::cout << "data size " << this->getSize() << std::endl;
+  	std::vector<int> result;
+	for (size_t i = 0; i< this->getSize(); i++)
+	{
+    		if (flag)
+      		 	std::cout << i << ",";
+		result.push_back(data[i]);
+	}
+        if (flag)
+    	     std::cout << std::endl;
 	return result;
 }
 
@@ -240,8 +292,7 @@ std::vector<int> Array::return_idx() {
 template<typename T>
 void printData(ostream& os, const Array& array) {
   const T* data = static_cast<const T*>(array.getData());
-  // std::cout << "error check " << std::endl;
-  os << "[";
+  os << " [";
   if (array.getSize() > 0) {
     os << data[0];
   }
@@ -254,7 +305,8 @@ void printData(ostream& os, const Array& array) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Array& array) {
-  //std::cout << "operator 1 " << std::endl;
+  // std::cout << "operator 1 " << std::endl;
+  
   Datatype type = array.getType();
   switch (type.getKind()) {
     case Datatype::Bool:
@@ -303,6 +355,7 @@ std::ostream& operator<<(std::ostream& os, const Array& array) {
       printData<std::complex<double>>(os, array);
       break;
     case Datatype::Undefined:
+      std::cout << " is undefined " << std::endl;
       os << "[]";
       break;
   }

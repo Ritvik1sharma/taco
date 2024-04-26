@@ -49,6 +49,8 @@ public:
   // std::vector<T> returnData();
   std::vector<double> return_values();
   std::vector<int> return_idx();
+  std::vector<double> return_values(bool);
+  std::vector<int> return_idx(bool);
   
   template <typename T>
   std::vector<T> return_data();
