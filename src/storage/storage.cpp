@@ -189,6 +189,7 @@ bool equals(TensorStorage a, TensorStorage b) {
 }
 
 std::ostream& operator<<(std::ostream& os, const TensorStorage& storage) {
+  // std::cout << "values or idx " << std::endl;
   if (storage.getOrder() > 0) {
     os << storage.getIndex() << std::endl;
   }
