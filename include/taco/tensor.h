@@ -26,7 +26,7 @@
 #include "taco/error/error_messages.h"
 #include "taco/util/name_generator.h"
 #include "taco/util/strings.h"
-
+#include <cmath>
 
 namespace taco {
 
@@ -1261,8 +1261,12 @@ template <typename CType>
 Tensor<CType> Tensor<CType>::removeExplicitFillValues(Format format, int value) const {
   Tensor<CType> newTensor(getDimensions(), format);
   for (const auto& elem : *this) {
-    if (elem.second != static_cast<CType>(value)) {
-      newTensor.insertUnchecked<int,CType>(elem.first, elem.second);
+    if (elem.second != static_cast<CType>(value)){
+	    // std::cout << "comparison " << elem.second << " " << std::pow(10, -16) << std::endl;
+	if (static_cast<double>(std::fabs(elem.second)) > std::pow(10, -16)) {
+		// std::cout << "add some " << std::endl;
+		newTensor.insertUnchecked<int,CType>(elem.first, elem.second);
+    	}
     }
   }
   newTensor.pack();
